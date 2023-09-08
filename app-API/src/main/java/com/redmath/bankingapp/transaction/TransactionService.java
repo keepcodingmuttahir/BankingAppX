@@ -4,6 +4,7 @@ import com.redmath.bankingapp.balance.Balance;
 
 import com.redmath.bankingapp.balance.BalanceService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,9 @@ public class TransactionService {
         return repository.findAll();
     }
 
+
+
+    @PreAuthorize("hasAuthority(ADMIN")
     public Transaction create(Long userId, Transaction transaction)
     {
         transaction.setUser_id(userId);

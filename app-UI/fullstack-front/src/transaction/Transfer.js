@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Transaction = () => {
+const Transfer = () => {
   let navigate = useNavigate();
+  const [reciever, setReciever] = useState([]);
   const { userId, balance } = useParams();
 
-  
   const [transactionData, setTransactionData] = useState({
     description: "",
     amount: "",
+    recieverId: "",
     transType: "debit"
   });
 
- 
-  const { description, amount, transType } = transactionData;
+  useEffect(() => {
+    loadUser();
+  }, []);
 
+  const loadUser = async () => {
+    try {
+      const result = await axios.get(`/api/v1/Users/${recieverId}`);
+      setReciever(result.data);
+    } catch (error) {
+      console.error("User not found:", error.message);
+    }
+  };
+  const { description, amount, transType, recieverId } = transactionData;
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -26,26 +37,25 @@ const Transaction = () => {
     });
   };
 
-  
   const handleCreateTransaction = async () => {
     try {
-    
+
+      if (reciever.roles === "ADMIN" || userId === recieverId) {
+        console.error("Transaction not allowed for this user.");
+        return;
+      }
+      console.log(reciever.roles)
       const numericAmount = parseFloat(transactionData.amount);
       const numericBalance = parseFloat(balance);
 
-     
-      if (numericAmount > numericBalance && transType == "debit") {
+      if (numericAmount > numericBalance) {
         console.error("Amount too large");
         return;
       }
 
-      const dataWithUserId = {
-        userId,
-        ...transactionData
-      };
-
       const response = await axios.post(
-        `/api/v1/Transaction/${userId}`, dataWithUserId,
+        `/api/v1/Transaction/${userId}`,
+        transactionData,
         {
           withCredentials: true,
           headers: {
@@ -53,15 +63,32 @@ const Transaction = () => {
           }
         }
       );
+      const receiverTransactionData = {
+        ...transactionData,
+        transType: "credit"
+      };
+      const recieverresponse = await axios.post(
+        `/api/v1/Transaction/${recieverId}`,
+        receiverTransactionData,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: "Basic " + btoa("admin:admin")
+          }
+        }
+      );
+
+      
       navigate("/");
-      if (response.status === 200) {
+      if (response.status === 200 && recieverresponse === 200) {
         console.log("Transaction created successfully:", response.data);
       }
     } catch (error) {
       console.error("Error creating transaction:", error);
     }
   };
-
+  console.log(userId);
+ 
   return (
     <div className="container">
       <h2 className="my-4">Create Transaction</h2>
@@ -75,15 +102,14 @@ const Transaction = () => {
           readOnly
         />
       </div>
-
       <div className="form-group">
-        <label htmlFor="balance">Balance</label>
+        <label htmlFor="recieverId">Reciever Id</label>
         <input
-          type="text"
+          type="number"
           className="form-control"
-          name="balance"
-          value={balance}
-          readOnly
+          name="recieverId" // Corrected the name attribute here
+          value={recieverId}
+          onChange={handleInputChange}
         />
       </div>
 
@@ -97,34 +123,20 @@ const Transaction = () => {
           onChange={handleInputChange}
         />
       </div>
-
       <div className="form-group">
-        <label htmlFor="amount">Amount</label>
+        <label htmlFor="amount">amount</label>
         <input
           type="number"
           className="form-control"
           name="amount"
           value={amount}
           onChange={handleInputChange}
-          pattern="[0-9]*"
+          pattern="[0-9]*" // This enforces numeric input
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="transType">Transaction Type</label>
-        <select
-          className="form-control"
-          name="transType"
-          value={transType}
-          onChange={handleInputChange}
-        >
-          <option value="debit">Debit</option>
-          <option value="credit">Credit</option>
-        </select>
-      </div>
-
       <button className="btn btn-primary" onClick={handleCreateTransaction}>
-        Create Transaction
+        Transfer Money
       </button>
       <Link className="btn btn-outline-danger" to="/">
         Cancel
@@ -133,4 +145,4 @@ const Transaction = () => {
   );
 };
 
-export default Transaction;
+export default Transfer;

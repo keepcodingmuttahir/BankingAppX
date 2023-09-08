@@ -29,7 +29,6 @@ export default function Home() {
       loadUsers();
     } else {
       console.error('Invalid user ID:', id);
-     
     }
   }
   

@@ -105,10 +105,13 @@ export default function UserHome() {
             ))}
           </tbody>
           <Link className="btn btn-primary mx-2"
-                to={`/transaction/${user.id}`}>
+                to={`/transaction/${user.id}/${balance.amount}`}>
                 Make Transaction 
                 </Link>
-                
+                <Link className="btn btn-primary mx-2"
+                to={`/transfer/${user.id}/${balance.amount}`}>
+                Transfer Money
+                </Link>      
 
         </table>
       </div>
