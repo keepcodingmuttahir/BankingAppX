@@ -42,7 +42,7 @@ public class UserController {
         User created = service.create(user);
         if (created != null) {
             if(user.getRoles().equals("USER")) {
-                int balance = balanceService.createById(user.getId());
+               balanceService.createById(user.getId());
             }
             return ResponseEntity.ok(created);
         }

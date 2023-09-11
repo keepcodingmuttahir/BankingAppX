@@ -1,5 +1,4 @@
 package com.redmath.bankingapp.transaction;
-import com.redmath.bankingapp.balance.BalanceService;
 import com.redmath.bankingapp.user.User;
 import com.redmath.bankingapp.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -11,16 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000",methods = {RequestMethod.GET,RequestMethod.POST, RequestMethod.DELETE,RequestMethod.PUT})  // <- use your url of frontend
+@CrossOrigin(origins = "http://localhost:3000",methods = {RequestMethod.GET,RequestMethod.POST, RequestMethod.DELETE,RequestMethod.PUT})
 
 @RequestMapping("/api/v1/Transaction")
 public class TransactionController {
     private final TransactionService service;
     private final UserService userService;
 
-    public TransactionController(TransactionService service, BalanceService balanceService, UserService userService) {
+    public TransactionController(TransactionService service, UserService userService) {
         this.service = service;
-        //this.balanceService = balanceService;
         this.userService = userService;
     }
 

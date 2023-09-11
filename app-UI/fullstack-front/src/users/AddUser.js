@@ -51,7 +51,7 @@ const AddAccountHolder = () => {
   };
 
   return (
-    <div className='container mt-5 my-5 accHoldContainer'>
+    <div className='container mt-5 my-5 accHoldContainer'  style={{ maxHeight: '80vh', overflowY: 'auto'}}>
       <div className="row">
         <div className="col-md-12 text-center">
           <h1 style={{

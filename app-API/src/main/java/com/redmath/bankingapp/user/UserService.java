@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
         if (user.isPresent()) {
             repository.deleteById(id);
             balanceRepository.deleteById(id);
-            int rowsDeleted = transactionRepository.deleteByUserId(id);
+           transactionRepository.deleteByUserId(id);
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");

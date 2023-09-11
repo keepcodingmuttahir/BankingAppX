@@ -63,7 +63,7 @@ const Transaction = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container"  style={{ maxHeight: '80vh', overflowY: 'auto'}}>
       <h2 className="my-4">Create Transaction</h2>
       <div className="form-group">
         <label className="my-3" htmlFor="userId">User ID</label>

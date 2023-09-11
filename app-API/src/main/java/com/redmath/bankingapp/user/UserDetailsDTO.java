@@ -11,7 +11,6 @@ public class UserDetailsDTO {
     private Balance balance;
     private List<Transaction> transactions;
 
-
     public List<Transaction> getTransactions() {
         return transactions;
     }

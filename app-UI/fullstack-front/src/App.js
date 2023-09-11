@@ -19,7 +19,6 @@ function App() {
   };
 
   useEffect(() => {
-     //window.location.href = 'http://localhost:9080/login';
 
     const fetchUserRoles = async () => {
       try {

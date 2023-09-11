@@ -26,10 +26,10 @@ public class BalanceService {
 
     public void updateDebitBalance(String balance, String debit, Long id)
     {
-       int success = repository.updatenewDebitBalance(balance,debit,id);
+       repository.updatenewDebitBalance(balance,debit,id);
     }
     public void updateCreditBalance(String balance, String credit, Long id)
     {
-        int success = repository.updatenewCreditBalance(balance,credit,id);
+        repository.updatenewCreditBalance(balance,credit,id);
     }
 }

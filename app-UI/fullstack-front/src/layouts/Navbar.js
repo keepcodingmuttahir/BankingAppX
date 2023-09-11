@@ -45,26 +45,6 @@ const Navbar = ({ user }) => {
               {/* Move this part within a list item */}
               {user && user.role === 'user' && (
                 <>
-                  {/* <li className="nav-item">
-                                        <Link className="nav-link" to="/transMoney">
-                                            Transfer Money
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/balHistory">
-                                            Balance History
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/transHistory">
-                                            Transaction History
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/transaction">
-                                            Create Transaction
-                                        </Link>
-                                    </li> */}
                 </>
               )}
             </ul>
