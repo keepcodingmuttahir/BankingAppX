@@ -31,12 +31,12 @@ databaseChangeLog:
             tableName: users
             columnNames: id
             constraintName: users_pk
-#        - createIndex:
-#            tableName: users
-#            indexName: users_ix_01
-#            columns:
-#              - column:
-#                  name: user_name
+        - createIndex:
+            tableName: users
+            indexName: users_ix_01
+            columns:
+              - column:
+                  name: user_name
   - changeSet:
       id: alter-table-auto-increment
       author: team

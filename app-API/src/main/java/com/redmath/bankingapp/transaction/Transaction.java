@@ -1,7 +1,5 @@
 package com.redmath.bankingapp.transaction;
-
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -41,6 +39,7 @@ public class Transaction {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
     public Long getUser_id() {
         return userId;
     }
@@ -56,8 +55,6 @@ public class Transaction {
     public void setId(Long id) {
         this.id = id;
     }
-
-
 
     public String getDescription() {
         return description;

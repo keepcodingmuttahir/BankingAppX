@@ -9,7 +9,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-#                  autoIncrement: true
                   constraints:
                     nullable: false
               - column:
@@ -28,21 +27,9 @@ databaseChangeLog:
             tableName: balance
             columnNames: id
             constraintName: balance_pk
-#        - addForeignKeyConstraint:
-#            baseTableName: balance
-#            baseColumnNames: user_id
-#            referencedTableName: users
-#            referencedColumnNames: id
-#            constraintName: user_id_balance_fk
         - createIndex:
             tableName: balance
             indexName: balance_ix_01
             columns:
               - column:
                   name: date
-#  - changeSet:
-#      id: alter-table-auto-increment
-#      author: team
-#      changes:
-#        - sql:
-#            sql: ALTER TABLE balance ALTER COLUMN id RESTART WITH 3;

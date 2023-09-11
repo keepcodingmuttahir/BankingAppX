@@ -7,14 +7,14 @@ const Transaction = () => {
   let navigate = useNavigate();
   const { userId, balance } = useParams();
 
-  
+
   const [transactionData, setTransactionData] = useState({
     description: "",
     amount: "",
     transType: "debit"
   });
 
- 
+
   const { description, amount, transType } = transactionData;
 
 
@@ -26,14 +26,14 @@ const Transaction = () => {
     });
   };
 
-  
+
   const handleCreateTransaction = async () => {
     try {
-    
+
       const numericAmount = parseFloat(transactionData.amount);
       const numericBalance = parseFloat(balance);
 
-     
+
       if (numericAmount > numericBalance && transType == "debit") {
         console.error("Amount too large");
         return;
@@ -66,7 +66,7 @@ const Transaction = () => {
     <div className="container">
       <h2 className="my-4">Create Transaction</h2>
       <div className="form-group">
-        <label htmlFor="userId">User ID</label>
+        <label className="my-3" htmlFor="userId">User ID</label>
         <input
           type="text"
           className="form-control"
@@ -77,7 +77,7 @@ const Transaction = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="balance">Balance</label>
+        <label className="my-3" htmlFor="balance">Balance</label>
         <input
           type="text"
           className="form-control"
@@ -88,7 +88,7 @@ const Transaction = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="description">Description</label>
+        <label className="my-3" htmlFor="description">Description</label>
         <input
           type="text"
           className="form-control"
@@ -99,7 +99,7 @@ const Transaction = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="amount">Amount</label>
+        <label className="my-3" htmlFor="amount">Amount</label>
         <input
           type="number"
           className="form-control"
@@ -110,8 +110,8 @@ const Transaction = () => {
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="transType">Transaction Type</label>
+      <div className="form-group mb-3">
+        <label className="my-3" htmlFor="transType">Transaction Type</label>
         <select
           className="form-control"
           name="transType"

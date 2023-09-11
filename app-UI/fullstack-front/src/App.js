@@ -3,16 +3,20 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./layouts/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import axios from 'axios';
-import {useEffect, useState} from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import AdminDashboard from './pages/AdminDashboard'
-import UserDashboard from './pages/UserDashboard'
-
+import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
-
   const [user, setUser] = useState(null);
+
+  const bodyStyle = {
+    backgroundImage: "linear-gradient(to right, #9796f0, #fbc7d4)",
+    height: "100vh",
+    overflow: "hidden",
+  };
 
   useEffect(() => {
      //window.location.href = 'http://localhost:9080/login';
@@ -41,17 +45,12 @@ function App() {
     fetchUserRoles();
   }, []);
 
-
-
   return (
-
     <Router>
-      <Navbar user={user} />
-      {user && user.role === 'admin' ? (
-        <AdminDashboard />
-      ) : (
-        <UserDashboard />
-      )}
+      <div style={bodyStyle}>
+        <Navbar user={user} />
+        {user && user.role === "admin" ? <AdminDashboard /> : <UserDashboard />}
+      </div>
     </Router>
   );
 }

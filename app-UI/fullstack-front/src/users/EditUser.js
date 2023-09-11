@@ -17,7 +17,7 @@ export default function EditUser() {
   const { userName, password, email, address, roles } = user;
 
   const onInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value }); // Updated to use e.target.name
+    setUser({ ...user, [e.target.name]: e.target.value }); 
   };
 
   useEffect(()=>{
@@ -53,7 +53,7 @@ export default function EditUser() {
               </label>
               <input
                 type="text"
-                className="form-control" // Updated class name
+                className="form-control" 
                 placeholder="Enter user name"
                 name="userName"
                 value={userName}
@@ -66,7 +66,7 @@ export default function EditUser() {
               </label>
               <input
                 type="text"
-                className="form-control" // Updated class name
+                className="form-control" 
                 placeholder="Enter password"
                 name="password"
                 value={password}
@@ -79,7 +79,7 @@ export default function EditUser() {
               </label>
               <input
                 type="text"
-                className="form-control" // Updated class name
+                className="form-control" 
                 placeholder="Enter user Email"
                 name="email"
                 value={email}
@@ -92,28 +92,13 @@ export default function EditUser() {
               </label>
               <input
                 type="text"
-                className="form-control" // Updated class name
+                className="form-control" 
                 placeholder="Enter address"
                 name="address"
                 value={address}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="Roles" className="form-label">
-                Roles
-              </label>
-              <select
-                className="form-select" // Updated class name
-                name="roles"
-                value={roles}
-                onChange={(e) => onInputChange(e)}
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>

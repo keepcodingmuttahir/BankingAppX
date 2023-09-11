@@ -1,4 +1,3 @@
-
 package com.redmath.bankingapp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +36,8 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin(formLogin->formLogin.defaultSuccessUrl("http://localhost:3000", true).permitAll());
-//        http.csrf(config -> config.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));
-
         http.authorizeHttpRequests(config -> config.anyRequest().authenticated());
         http.csrf(csrf->csrf.disable());
-
         http.cors(Customizer.withDefaults());
         return http.build();
     }

@@ -24,7 +24,6 @@ databaseChangeLog:
               - column:
                   name: trans_type
                   value: 'credit'
-
         - insert:
             tableName: transaction
             columns:

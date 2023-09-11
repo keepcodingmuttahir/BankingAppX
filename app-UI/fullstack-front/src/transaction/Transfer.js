@@ -27,6 +27,7 @@ const Transfer = () => {
       console.error("User not found:", error.message);
     }
   };
+
   const { description, amount, transType, recieverId } = transactionData;
 
   const handleInputChange = e => {
@@ -52,17 +53,6 @@ const Transfer = () => {
         console.error("Amount too large");
         return;
       }
-
-      const response = await axios.post(
-        `/api/v1/Transaction/${userId}`,
-        transactionData,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: "Basic " + btoa("admin:admin")
-          }
-        }
-      );
       const receiverTransactionData = {
         ...transactionData,
         transType: "credit"
@@ -77,23 +67,39 @@ const Transfer = () => {
           }
         }
       );
+      const senderTransactionData = {
+        ...transactionData,
+        transType: "debit"
+      };
 
-      
-      navigate("/");
-      if (response.status === 200 && recieverresponse === 200) {
-        console.log("Transaction created successfully:", response.data);
+      // Check if the response from the first request is okay
+      if (recieverresponse.status === 200) {
+        const response = await axios.post(
+          `/api/v1/Transaction/${userId}`,
+          senderTransactionData,
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: "Basic " + btoa("admin:admin")
+            }
+          }
+        );
+
+        navigate("/");
+        if (response.status === 200 && recieverresponse === 200) {
+          console.log("Transaction created successfully:", response.data);
+        }
       }
     } catch (error) {
       console.error("Error creating transaction:", error);
     }
   };
-  console.log(userId);
- 
+
   return (
     <div className="container">
       <h2 className="my-4">Create Transaction</h2>
       <div className="form-group">
-        <label htmlFor="userId">User ID</label>
+        <label className="my-3" htmlFor="userId">User ID</label>
         <input
           type="text"
           className="form-control"
@@ -103,7 +109,7 @@ const Transfer = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="recieverId">Reciever Id</label>
+        <label className="my-3" htmlFor="recieverId">Reciever Id</label>
         <input
           type="number"
           className="form-control"
@@ -114,7 +120,7 @@ const Transfer = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="description">Description</label>
+        <label className="my-3" htmlFor="description">Description</label>
         <input
           type="text"
           className="form-control"
@@ -123,8 +129,8 @@ const Transfer = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="amount">amount</label>
+      <div className="form-group mb-3">
+        <label className="my-3" htmlFor="amount">amount</label>
         <input
           type="number"
           className="form-control"

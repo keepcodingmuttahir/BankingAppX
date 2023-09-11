@@ -1,8 +1,6 @@
 package com.redmath.bankingapp.balance;
-
-
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +19,7 @@ public class BalanceController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<Balance>> findAll()
     {
         return  ResponseEntity.ok(service.findAll());

@@ -1,6 +1,4 @@
 package com.redmath.bankingapp.balance;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 

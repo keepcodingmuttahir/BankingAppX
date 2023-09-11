@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: bank
+  liquibase:
+    contexts: local
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: ${bank.db.url}
+    username: ${bank.db.username}
+    password: ${bank.db.password}
+    liquibase:
+      contexts: ${bank.liquibase.contexts:}
+  h2:
+    console:
+      enabled: true
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] ${HOSTNAME}"
+  file:
+    name: ${bank.log.dir:target}/bank.log
+  level:
+    sql: debug
+    web: debug
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+springdoc:
+  show-login-endpoint: true
+
+

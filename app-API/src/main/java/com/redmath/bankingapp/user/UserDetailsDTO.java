@@ -9,7 +9,6 @@ import java.util.List;
 public class UserDetailsDTO {
     private User user;
     private Balance balance;
-   // private Transaction transaction;
     private List<Transaction> transactions;
 
 

@@ -1,8 +1,6 @@
-
- import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
-
 
 const AddAccountHolder = () => {
   let navigate = useNavigate();
@@ -13,7 +11,6 @@ const AddAccountHolder = () => {
     roles: 'USER', // Default role is 'user'
     address: '',
   });
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,16 +28,16 @@ const AddAccountHolder = () => {
         ...formData,
         roles: formData.roles.toUpperCase(),
       };
-  
+
       const response = await axios.post('/api/v1/Users', dataToSend, {
         withCredentials: true,
         headers: {
           'Authorization': 'Basic ' + btoa('admin:admin'),
         },
-      
+
       });
       navigate("/");
-  
+
       if (response.status === 200) {
         // Handle successful submission, e.g., show a success message or redirect
         //toast.success(`Account holder @_${formData.username} added successfully`);
@@ -50,15 +47,24 @@ const AddAccountHolder = () => {
     } catch (error) {
       // toast.error("Account holder couldn't be added");
     }
-    
+
   };
-  
 
   return (
     <div className='container mt-5 my-5 accHoldContainer'>
       <div className="row">
         <div className="col-md-12 text-center">
-          <h1>Add Account Holder</h1>
+          <h1 style={{
+            color: "#0000009e"
+          }} >Add Account Holder</h1>
+          <div style={{
+            background: 'black',
+            height: '1px',
+            width: '21%',
+            margin: 'auto',
+            marginBottom: '8px'
+          }} ></div>
+          <p>Add Valid Accout details</p>
         </div>
       </div>
       <div className="row">
@@ -100,37 +106,44 @@ const AddAccountHolder = () => {
                 required
               />
             </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="roles"
-                id="admin"
-                value="admin"
-                checked={formData.roles === 'admin'}
-                onChange={handleChange}
-                required
-              />
-              <label className="form-check-label" htmlFor="admin">
-                Admin
-              </label>
+            <p>Role:</p>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginLeft: "20px"
+            }} >
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="roles"
+                  id="admin"
+                  value="admin"
+                  checked={formData.roles === 'admin'}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="form-check-label" htmlFor="admin">
+                  Admin
+                </label>
+              </div>
+              <div style={{ marginLeft: "12px" }} className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="roles"
+                  id="user"
+                  value="user"
+                  checked={formData.roles === 'user'}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="form-check-label" htmlFor="user">
+                  User
+                </label>
+              </div>
             </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="roles"
-                id="user"
-                value="user"
-                checked={formData.roles === 'user'}
-                onChange={handleChange}
-                required
-              />
-              <label className="form-check-label" htmlFor="user">
-                User
-              </label>
-            </div>
-            <div className="mb-3">
+            <div style={{ marginTop: '15px'}} className="mb-3">
               <label htmlFor="address" className="form-label">Address</label>
               <textarea
                 className="form-control"

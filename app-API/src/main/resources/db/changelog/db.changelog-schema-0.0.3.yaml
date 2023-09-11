@@ -31,12 +31,6 @@ databaseChangeLog:
             tableName: transaction
             columnNames: id
             constraintName: transaction_pk
-#        - addForeignKeyConstraint:
-#            baseTableName: transaction
-#            baseColumnNames: user_id
-#            referencedTableName: users
-#            referencedColumnNames: id
-#            constraintName: user_id_fk
         - createIndex:
             tableName: transaction
             indexName: transaction_ix_01

@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.redmath</groupId>
 	<artifactId>app-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>banking-app</name>
-	<description>Banking app using springboot</description>
+	<description>Banking app using springBoot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -82,11 +82,11 @@
 			<version>RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
-			<dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>6.1.3</version>
-            </dependency>
+<!--			<dependency>-->
+<!--                <groupId>org.springframework.security</groupId>-->
+<!--                <artifactId>spring-security-core</artifactId>-->
+<!--                <version>6.1.3</version>-->
+<!--            </dependency>-->
 	</dependencies>
 
 	<build>
