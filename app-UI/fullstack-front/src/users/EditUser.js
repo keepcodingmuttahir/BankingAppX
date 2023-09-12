@@ -24,16 +24,22 @@ export default function EditUser() {
     loadUser();
   }, []);
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`/api/v1/Users/${id}`, user, {
-      withCredentials: true,
-      headers: {
-        Authorization: "Basic " + btoa("admin:admin")
-      }
-    });
-    navigate("/");
+  
+    try {
+      await axios.put(`/api/v1/Users/${id}`, user, {
+        withCredentials: true,
+        headers: {
+          Authorization: "Basic " + btoa("admin:admin"),
+        },
+      });
+      navigate("/");
+    } catch (error) {
+      console.error("Error editing user:", error);
+    }
   };
+  
 
   const loadUser = async () => {
     const result = await axios.get(`/api/v1/Users/${id}`);

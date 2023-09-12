@@ -1,11 +1,15 @@
 package com.redmath.bankingapp.config;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -14,10 +18,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @EnableMethodSecurity
+@EnableConfigurationProperties
 @Configuration
 public class WebSecurityConfiguration {
-
-
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -37,7 +40,11 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin(formLogin->formLogin.defaultSuccessUrl("http://localhost:3000", true).permitAll());
         http.authorizeHttpRequests(config -> config.anyRequest().authenticated());
-        http.csrf(csrf->csrf.disable());
+        //http.csrf(csrf->csrf.disable());
+        CookieCsrfTokenRepository csrfRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        csrfRepository.setCookiePath("/");
+        http.csrf(config -> config.csrfTokenRepository(csrfRepository)
+                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));
         http.cors(Customizer.withDefaults());
         return http.build();
     }

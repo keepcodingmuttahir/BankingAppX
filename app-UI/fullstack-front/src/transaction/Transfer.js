@@ -72,7 +72,6 @@ const Transfer = () => {
         transType: "debit"
       };
 
-      // Check if the response from the first request is okay
       if (recieverresponse.status === 200) {
         const response = await axios.post(
           `/api/v1/Transaction/${userId}`,
@@ -96,7 +95,7 @@ const Transfer = () => {
   };
 
   return (
-    <div className="container"  style={{ maxHeight: '80vh', overflowY: 'auto'}}>
+    <div className="container" >
       <h2 className="my-4">Create Transaction</h2>
       <div className="form-group">
         <label className="my-3" htmlFor="userId">User ID</label>
@@ -113,7 +112,7 @@ const Transfer = () => {
         <input
           type="number"
           className="form-control"
-          name="recieverId" // Corrected the name attribute here
+          name="recieverId" 
           value={recieverId}
           onChange={handleInputChange}
         />
