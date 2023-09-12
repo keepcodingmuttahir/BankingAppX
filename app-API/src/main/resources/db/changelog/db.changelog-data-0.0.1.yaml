@@ -14,7 +14,7 @@ databaseChangeLog:
                   value: user
               - column:
                   name: password
-                  value: '{noop}user'
+                  value: '$2a$12$fMg3DsVoAaTTOq15mVfN1uu/u7cRhI.QRrrWgCD.qHF2M9UIp2LXO'
               - column:
                   name: email
                   value: 'user1@example.com'
@@ -35,7 +35,7 @@ databaseChangeLog:
                   value: admin
               - column:
                   name: password
-                  value: '{noop}admin'
+                  value: '$2a$12$NHLXwLuobmbRnkT0h2fdDel6IYwlgREPbis2jTs/l8w0a9pYAgMh.'
               - column:
                   name: email
                   value: 'admin1@example.com'

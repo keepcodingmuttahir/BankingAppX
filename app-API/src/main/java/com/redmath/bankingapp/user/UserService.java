@@ -1,6 +1,7 @@
 package com.redmath.bankingapp.user;
 import com.redmath.bankingapp.balance.BalanceRepository;
 import com.redmath.bankingapp.transaction.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +18,7 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,19 +33,23 @@ public class UserService implements UserDetailsService {
     private final UserRepository repository;
     private final TransactionRepository transactionRepository;
     private final BalanceRepository balanceRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository, TransactionRepository transactionRepository, BalanceRepository balanceRepository) {
+    @Autowired
+    public UserService(UserRepository repository, TransactionRepository transactionRepository ,BCryptPasswordEncoder passwordEncoder, BalanceRepository balanceRepository) {
         this.repository = repository;
         this.transactionRepository = transactionRepository;
         this.balanceRepository = balanceRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> findAll() {
        return repository.findAll();
     }
 
-    public User create(User user)
-    {
+    public User create(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         return repository.save(user);
     }
 
@@ -55,7 +63,7 @@ public class UserService implements UserDetailsService {
         if (user.isPresent()) {
             repository.deleteById(id);
             balanceRepository.deleteById(id);
-           transactionRepository.deleteByUserId(id);
+            transactionRepository.deleteByUserId(id);
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
